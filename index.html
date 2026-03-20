@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jared Shop - Game Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --secondary: #ff3cac;
+            --accent: #f9c846;
+            --dark: #0a0d14;
+            --dark2: #0f1420;
+            --dark3: #141929;
+            --card-bg: #111827;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --green: #39ff14;
+            --glow-cyan: 0 0 18px rgba(0,240,255,0.55);
+            --glow-pink: 0 0 18px rgba(255,60,172,0.55);
+            --glow-green: 0 0 12px rgba(57,255,20,0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            overflow: hidden;
+            background-image:
+                radial-gradient(ellipse at 10% 20%, rgba(0,240,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(255,60,172,0.06) 0%, transparent 50%);
+        }
+
+        /* ─── HEADER ─── */
+        header {
+            background: rgba(10,13,20,0.95);
+            backdrop-filter: blur(12px);
+            padding: 0 5%;
+            height: 65px;
+            border-bottom: 2px solid transparent;
+            background-clip: padding-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 30px rgba(0,240,255,0.12);
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-shadow: none;
+            filter: drop-shadow(0 0 12px rgba(0,240,255,0.4));
+        }
+
+        .header-right { display: flex; align-items: center; gap: 10px; }
+        .welcome-txt { color: var(--accent); font-weight: 700; font-size: 1rem; letter-spacing: 1px; margin-right: 8px; }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .btn-cyan {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-cyan:hover { background: var(--primary); color: var(--dark); box-shadow: var(--glow-cyan); }
+        .btn-pink {
+            background: var(--secondary);
+            color: white;
+        }
+        .btn-pink:hover { box-shadow: var(--glow-pink); transform: translateY(-1px); }
+        .btn-accent {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        .btn-accent:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .btn-danger { background: #ef4444; color: white; padding: 3px 8px; font-size: 0.8rem; border-radius: 3px; border: none; cursor: pointer; }
+        .btn-muted { background: #2d3748; color: var(--text); border: none; }
+        .btn-muted:hover { background: #4a5568; }
+
+        /* ─── MAIN ─── */
+        .main-container { max-width: 1300px; margin: 0 auto; padding: 28px 20px; height: calc(100vh - 65px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--primary) var(--dark2); }
+        .main-container::-webkit-scrollbar { width: 6px; }
+        .main-container::-webkit-scrollbar-track { background: var(--dark2); }
+        .main-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        /* ─── SECTION TITLE ─── */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            opacity: 0.4;
+        }
+
+        /* ─── GAME GRID ─── */
+        .grid-juegos { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 18px; }
+
+        .card-juego {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(0,240,255,0.12);
+            overflow: hidden;
+            transition: all 0.25s;
+            cursor: pointer;
+            position: relative;
+        }
+        .card-juego::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            opacity: 0;
+            background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(255,60,172,0.06));
+            transition: opacity 0.25s;
+        }
+        .card-juego:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--glow-cyan);
+        }
+        .card-juego:hover::before { opacity: 1; }
+
+        .img-box { width: 100%; height: 170px; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+        .card-juego:hover .img-box img { transform: scale(1.05); }
+
+        .info-box { padding: 14px; }
+        .info-box strong { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+        .price-tag { color: var(--green); font-size: 1.15rem; font-weight: 700; text-shadow: var(--glow-green); }
+
+        /* ─── LOGIN OVERLAY ─── */
+        #overlay-login {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10,13,20,0.97);
+            z-index: 5000;
+            display: flex; justify-content: center; align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .login-box {
+            background: var(--dark3);
+            padding: 44px 48px;
+            border-radius: 12px;
+            border: 1.5px solid var(--primary);
+            text-align: center;
+            width: 380px;
+            box-shadow: var(--glow-cyan);
+        }
+        .login-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        .login-box p { color: var(--text-muted); font-size: 1rem; margin-bottom: 22px; }
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1.5px solid rgba(0,240,255,0.25);
+            background: rgba(0,240,255,0.04);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus { border-color: var(--primary); box-shadow: var(--glow-cyan); }
+        .input-field::placeholder { color: #4a5568; }
+
+        /* ─── MODALS ─── */
+        #modal-producto, #modal-usuarios {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88); z-index: 2000; justify-content: center; align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: var(--dark3);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1.5px solid var(--primary);
+            width: 580px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--glow-cyan);
+        }
+        .modal-content h2 { font-family: 'Orbitron', sans-serif; font-size: 1rem; letter-spacing: 1px; margin-bottom: 10px; }
+        .video-wrapper { width: 100%; height: 300px; background: #000; margin-bottom: 16px; border-radius: 6px; overflow: hidden; }
+        .qty-input {
+            width: 70px; padding: 8px;
+            border-radius: 4px; border: 1.5px solid rgba(0,240,255,0.3);
+            background: var(--dark2); color: white;
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            text-align: center; outline: none; margin-bottom: 16px;
+        }
+
+        /* ─── SIDEBARS ─── */
+        #user-sidebar, #cart-sidebar {
+            position: fixed; right: -420px; top: 0;
+            width: 360px; height: 100%;
+            background: var(--dark3);
+            border-left: 2px solid var(--primary);
+            transition: right 0.35s cubic-bezier(.4,0,.2,1);
+            z-index: 1001;
+            display: flex; flex-direction: column;
+            padding: 24px; gap: 14px;
+            box-shadow: -6px 0 40px rgba(0,240,255,0.1);
+        }
+        #cart-sidebar { z-index: 1000; }
+        #user-sidebar.active, #cart-sidebar.active { right: 0; }
+        .sidebar-title { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; color: var(--primary); letter-spacing: 2px; }
+        .user-list { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .user-item {
+            background: var(--dark2);
+            padding: 10px 14px;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600;
+        }
+        .cart-item {
+            background: var(--dark2);
+            padding: 10px 14px;
+            border-radius: 6px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 3px solid var(--secondary);
+            font-weight: 600;
+        }
+        .cart-total { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--green); text-shadow: var(--glow-green); }
+
+        /* ─── CHAT ─── */
+        .area-chat {
+            margin-top: 28px;
+            background: var(--dark3);
+            border: 1.5px solid rgba(0,240,255,0.18);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .area-chat::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .chat-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-status {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green);
+            box-shadow: var(--glow-green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        #chat-display {
+            height: 160px;
+            overflow-y: auto;
+            background: var(--dark2);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 14px;
+            border-radius: 8px;
+            display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--dark);
+        }
+        #chat-display::-webkit-scrollbar { width: 4px; }
+        #chat-display::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
+
+        .msg {
+            padding: 9px 15px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .msg-user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary), #0099aa);
+            color: var(--dark);
+            border-radius: 12px 12px 2px 12px;
+        }
+        .msg-bot {
+            align-self: flex-start;
+            background: var(--dark3);
+            color: var(--text);
+            border: 1px solid rgba(255,60,172,0.3);
+            border-radius: 12px 12px 12px 2px;
+        }
+
+        .chat-input-row { display: flex; gap: 10px; }
+        .chat-input {
+            flex: 1;
+            padding: 11px 16px;
+            border-radius: 6px;
+            border: 1.5px solid rgba(0,240,255,0.2);
+            background: var(--dark2);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .chat-input:focus { border-color: var(--primary); box-shadow: var(--glow-cyan); }
+        .chat-input::placeholder { color: #4a5568; }
+    </style>
+</head>
+<body onload="init()">
+
+    <!-- LOGIN -->
+    <div id="overlay-login">
+        <div class="login-box">
+            <h2>JARED SHOP</h2>
+            <p>Ingresa tu nombre para continuar</p>
+            <input type="text" class="input-field" id="reg-nombre" placeholder="Tu nombre o nickname" autocomplete="off">
+            <br><br>
+            <button class="btn btn-cyan" style="width:100%; padding:12px;" onclick="registrarUsuario()">ENTRAR AL STORE</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR USUARIOS -->
+    <div id="user-sidebar">
+        <div class="sidebar-title">👥 USUARIOS</div>
+        <div id="user-list" class="user-list"></div>
+        <button class="btn btn-muted" onclick="toggleUsers()">CERRAR</button>
+    </div>
+
+    <!-- MODAL PRODUCTO -->
+    <div id="modal-producto">
+        <div class="modal-content">
+            <div id="video-wrapper" class="video-wrapper"></div>
+            <h2 id="m-titulo"></h2>
+            <p id="m-precio" style="color:var(--green); font-size:1.3rem; font-weight:700; text-shadow:var(--glow-green); margin-bottom:6px;"></p>
+            <p style="color:var(--text-muted); margin-bottom:12px;">Stock disponible: <span id="m-stock" style="color:var(--accent);font-weight:700;"></span></p>
+            <input type="number" class="qty-input" id="m-cant" value="1" min="1">
+            <br>
+            <button class="btn btn-pink" style="margin-right:8px;" onclick="add()">Añadir al Carrito</button>
+            <button class="btn btn-muted" onclick="closeM()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR CARRITO -->
+    <div id="cart-sidebar">
+        <div class="sidebar-title">🛒 CARRITO</div>
+        <div id="cart-items" style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;"></div>
+        <div>Total: <span class="cart-total" id="cart-total">$0.00</span></div>
+        <button class="btn btn-accent" style="width:100%; padding:12px;" onclick="pay()">PAGAR AHORA</button>
+        <button class="btn btn-muted" onclick="toggleC()">VOLVER</button>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div style="display:flex; align-items:center; gap:20px;">
+            <div class="logo">JARED SHOP</div>
+            <span class="welcome-txt" id="txt-bienvenida"></span>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-cyan" onclick="toggleUsers()">👥 Comunidad</button>
+            <button class="btn btn-pink" onclick="toggleC()">🛒 Carrito (<span id="cart-count">0</span>)</button>
+            <button class="btn" style="background:#ef4444; color:white;" onclick="salir()">Salir</button>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <div class="main-container">
+        <div class="section-title">Bienvenido a la Tienda</div>
+        <div class="grid-juegos" id="grid"></div>
+
+        <!-- CHAT -->
+        <div class="area-chat">
+            <div class="chat-header">
+                <div class="chat-status"></div>
+                JARED ASISTENTE IA
+            </div>
+            <div id="chat-display"></div>
+            <div class="chat-input-row">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter')handleChat()">
+                <button class="btn btn-cyan" onclick="handleChat()">ENVIAR</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const db = [
+            { id: 0, n: "Borderlands 3", p: 30, s: 5, img: "https://img.asmedia.epimg.net/resizer/v2/KCBZR3TQXRPTPK3WWHZZNIBA4I.jpg?auth=320bb9b1132493e0dc27cc129bb39202867d7b5e57000dbb930d423371488b85&width=1200&height=675&smart=true", vid: "DU6wWn-oVpU" },
+            { id: 1, n: "R.E.P.O.", p: 20, s: 8, img: "https://i.pinimg.com/236x/41/fc/cb/41fccbc3e859a266af8dccffa1c52117.jpg", vid: "ZkN0LdB4iAQ" },
+            { id: 2, n: "Terraria", p: 10, s: 15, img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg", vid: "J-ykK1ACzBI" },
+            { id: 3, n: "Minecraft Dungeons", p: 20, s: 4, img: "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000021401/59686225dba24636062a421593effdb4fe136bbfd67b11c621fe92ed36a65734", vid: "eoRd6rT63uA" },
+            { id: 4, n: "Halo Infinite", p: 40, s: 6, img: "https://wpassets.halowaypoint.com/wp-content/2021/12/HaloInfinite_CampaignKeyArt_CLEAN_1920x1080.jpg", vid: "EqG1tCWbZNQ" }
+        ];
+
+        let cart = [];
+        let cur = null;
+        let usuarios = JSON.parse(localStorage.getItem('jaredUsers')) || [];
+        let currentUser = "";
+
+        function init() { renderGrid(); renderUsers(); }
+
+        function salir() {
+            currentUser = "";
+            document.getElementById('txt-bienvenida').innerText = "";
+            document.getElementById('overlay-login').style.display = 'flex';
+        }
+
+        function registrarUsuario() {
+            const nom = document.getElementById('reg-nombre').value.trim();
+            if (!nom) return alert("Debes ingresar un nombre.");
+            currentUser = nom;
+            if (!usuarios.includes(nom)) {
+                usuarios.push(nom);
+                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+                renderUsers();
+            }
+            document.getElementById('txt-bienvenida').innerText = `Hola, ${currentUser} ✦`;
+            document.getElementById('overlay-login').style.display = 'none';
+            document.getElementById('reg-nombre').value = '';
+        }
+
+        function renderUsers() {
+            document.getElementById('user-list').innerHTML = usuarios.map((u, i) => `
+                <div class="user-item">
+                    <span>⬡ ${u}</span>
+                    <div style="display:flex;gap:6px;">
+                        <button class="btn" style="background:#2563eb;color:white;padding:3px 8px;font-size:0.75rem;" onclick="editarUsuario(${i})">✎</button>
+                        <button class="btn-danger" onclick="borrarUsuario(${i})">✕</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function borrarUsuario(idx) {
+            if (confirm("¿Borrar a este usuario?")) {
+                usuarios.splice(idx, 1);
+                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+                renderUsers();
+            }
+        }
+
+        function editarUsuario(idx) {
+            const nuevo = prompt("Nuevo nombre:", usuarios[idx]);
+            if (nuevo && nuevo.trim()) {
+                usuarios[idx] = nuevo.trim();
+                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+                renderUsers();
+            }
+        }
+
+        function toggleUsers() { document.getElementById('user-sidebar').classList.toggle('active'); }
+
+        function renderGrid() {
+            document.getElementById('grid').innerHTML = db.map(j => `
+                <div class="card-juego" onclick="openM(${j.id})">
+                    <div class="img-box"><img src="${j.img}" alt="${j.n}"></div>
+                    <div class="info-box">
+                        <strong>${j.n}</strong>
+                        <span class="price-tag">$${j.p}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openM(id) {
+            cur = db.find(j => j.id === id);
+            document.getElementById('video-wrapper').innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${cur.vid}" frameborder="0" allowfullscreen></iframe>`;
+            document.getElementById('m-titulo').innerText = cur.n;
+            document.getElementById('m-precio').innerText = `$${cur.p}.00`;
+            document.getElementById('m-stock').innerText = cur.s;
+            document.getElementById('modal-producto').style.display = 'flex';
+        }
+
+        function closeM() {
+            document.getElementById('video-wrapper').innerHTML = "";
+            document.getElementById('modal-producto').style.display = 'none';
+        }
+
+        function add() {
+            const c = parseInt(document.getElementById('m-cant').value);
+            if (c > cur.s || c <= 0) return alert("Stock insuficiente.");
+            cur.s -= c;
+            for (let i = 0; i < c; i++) cart.push({...cur});
+            updateUI();
+            closeM();
+        }
+
+        function updateUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const total = cart.reduce((a, b) => a + b.p, 0);
+            document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('cart-items').innerHTML = cart.map((j, i) => `
+                <div class="cart-item">
+                    <span>${j.n}</span>
+                    <button class="btn-danger" onclick="remove(${i})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function remove(i) {
+            db.find(j => j.id === cart[i].id).s += 1;
+            cart.splice(i, 1);
+            updateUI();
+        }
+
+        function toggleC() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+        function pay() { if (cart.length > 0) { alert("¡Compra realizada! 🎮"); cart = []; updateUI(); toggleC(); } }
+
+        function handleChat() {
+            const input = document.getElementById('chat-input');
+            const txt = input.value.trim();
+            if (!txt) return;
+            addMsg(txt, 'user');
+            input.value = "";
+            setTimeout(() => {
+                const q = txt.toLowerCase();
+                let r = "";
+                if (q.match(/hola|buen|quetal|onda/)) r = `¡Hola, ${currentUser}! ¿Buscas algún juego en especial? 🎮`;
+                else if (q.includes("barato") || q.includes("oferta")) {
+                    const low = [...db].sort((a, b) => a.p - b.p)[0];
+                    r = `El más accesible es ${low.n} por solo $${low.p} 💸`;
+                } else if (q.includes("caro") || q.includes("mejor")) {
+                    const high = [...db].sort((a, b) => b.p - a.p)[0];
+                    r = `El premium del momento es ${high.n} a $${high.p} — ¡vale cada centavo! 🔥`;
+                } else if (q.includes("stock") || q.includes("disponible")) {
+                    r = "Stock actual: " + db.map(j => `${j.n} (${j.s})`).join(", ") + ".";
+                } else if (q.match(/tonto|mierda|asco/)) {
+                    r = "Oye, soy Jared Asistente, solo quiero ayudarte a encontrar tu próximo juego favorito 😅";
+                } else if (q.includes("recomienda") || q.includes("cual compro")) {
+                    const rnd = db[Math.floor(Math.random() * db.length)];
+                    r = `Te recomiendo ${rnd.n} — haz clic en su imagen para ver el tráiler 🎬`;
+                } else if (q.match(/adios|bye|chao|gracias/)) {
+                    r = `¡Hasta pronto, ${currentUser}! ¡Disfruta tu gaming! 🕹️`;
+                } else if (q.includes("quien eres") || q.includes("que eres")) {
+                    r = "Soy Jared Asistente, la IA de Jared Shop. Estoy aquí para que no te quedes sin jugar.";
+                } else if (q.includes("video") || q.includes("trailer")) {
+                    r = "Haz clic en cualquier juego del catálogo para ver su tráiler oficial. ▶️";
+                } else {
+                    r = "Puedo ayudarte con precios, stock, recomendaciones o tráilers. ¿Qué necesitas?";
+                }
+                botReply(r);
+            }, 500);
+        }
+
+        function addMsg(t, type) {
+            const d = document.getElementById('chat-display');
+            d.innerHTML += `<div class="msg msg-${type}">${t}</div>`;
+            d.scrollTop = d.scrollHeight;
+        }
+
+        function botReply(t) { addMsg(t, 'bot'); }
+    </script>
+</body>
+</html>
