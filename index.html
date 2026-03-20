@@ -21,9 +21,7 @@
             --glow-pink: 0 0 18px rgba(255,60,172,0.55);
             --glow-green: 0 0 12px rgba(57,255,20,0.5);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Rajdhani', sans-serif;
             background: var(--dark);
@@ -33,32 +31,25 @@
                 radial-gradient(ellipse at 10% 20%, rgba(0,240,255,0.06) 0%, transparent 50%),
                 radial-gradient(ellipse at 90% 80%, rgba(255,60,172,0.06) 0%, transparent 50%);
         }
-
-        /* ─── HEADER ─── */
         header {
             background: rgba(10,13,20,0.95);
             backdrop-filter: blur(12px);
             padding: 0 5%;
             height: 65px;
-            border-bottom: 2px solid transparent;
-            background-clip: padding-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
+            position: relative;
             z-index: 100;
             box-shadow: 0 2px 30px rgba(0,240,255,0.12);
         }
         header::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 0; right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
         }
-
         .logo {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
@@ -67,302 +58,212 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 2px;
-            text-shadow: none;
             filter: drop-shadow(0 0 12px rgba(0,240,255,0.4));
         }
-
         .header-right { display: flex; align-items: center; gap: 10px; }
         .welcome-txt { color: var(--accent); font-weight: 700; font-size: 1rem; letter-spacing: 1px; margin-right: 8px; }
 
-        /* ─── BUTTONS ─── */
         .btn {
             font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
+            font-weight: 700; font-size: 0.9rem;
+            letter-spacing: 1px; border: none;
+            padding: 8px 16px; border-radius: 4px;
+            cursor: pointer; transition: all 0.2s;
             text-transform: uppercase;
         }
-        .btn-cyan {
-            background: transparent;
-            border: 1.5px solid var(--primary);
-            color: var(--primary);
-        }
+        .btn-cyan { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
         .btn-cyan:hover { background: var(--primary); color: var(--dark); box-shadow: var(--glow-cyan); }
-        .btn-pink {
-            background: var(--secondary);
-            color: white;
-        }
+        .btn-pink { background: var(--secondary); color: white; }
         .btn-pink:hover { box-shadow: var(--glow-pink); transform: translateY(-1px); }
-        .btn-accent {
-            background: var(--accent);
-            color: var(--dark);
-        }
-        .btn-accent:hover { filter: brightness(1.1); transform: translateY(-1px); }
-        .btn-danger { background: #ef4444; color: white; padding: 3px 8px; font-size: 0.8rem; border-radius: 3px; border: none; cursor: pointer; }
+        .btn-accent { background: var(--accent); color: var(--dark); }
         .btn-muted { background: #2d3748; color: var(--text); border: none; }
         .btn-muted:hover { background: #4a5568; }
+        .btn-danger { background: #ef4444; color: white; padding: 3px 8px; font-size: 0.8rem; border-radius: 3px; border: none; cursor: pointer; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
 
-        /* ─── MAIN ─── */
         .main-container { max-width: 1300px; margin: 0 auto; padding: 28px 20px; height: calc(100vh - 65px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--primary) var(--dark2); }
         .main-container::-webkit-scrollbar { width: 6px; }
-        .main-container::-webkit-scrollbar-track { background: var(--dark2); }
         .main-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-        /* ─── SECTION TITLE ─── */
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: var(--primary);
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-size: 1.1rem; color: var(--primary);
+            letter-spacing: 3px; text-transform: uppercase;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
         }
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            opacity: 0.4;
-        }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--primary), transparent); opacity: 0.4; }
 
-        /* ─── GAME GRID ─── */
         .grid-juegos { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 18px; }
-
         .card-juego {
-            background: var(--card-bg);
-            border-radius: 8px;
+            background: var(--card-bg); border-radius: 8px;
             border: 1px solid rgba(0,240,255,0.12);
-            overflow: hidden;
-            transition: all 0.25s;
-            cursor: pointer;
-            position: relative;
+            overflow: hidden; transition: all 0.25s; cursor: pointer;
         }
-        .card-juego::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 8px;
-            opacity: 0;
-            background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(255,60,172,0.06));
-            transition: opacity 0.25s;
-        }
-        .card-juego:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: var(--glow-cyan);
-        }
-        .card-juego:hover::before { opacity: 1; }
-
+        .card-juego:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: var(--glow-cyan); }
         .img-box { width: 100%; height: 170px; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
         .card-juego:hover .img-box img { transform: scale(1.05); }
-
         .info-box { padding: 14px; }
-        .info-box strong { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+        .info-box strong { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; display: block; margin-bottom: 6px; }
         .price-tag { color: var(--green); font-size: 1.15rem; font-weight: 700; text-shadow: var(--glow-green); }
 
-        /* ─── LOGIN OVERLAY ─── */
         #overlay-login {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10,13,20,0.97);
-            z-index: 5000;
+            background: rgba(10,13,20,0.97); z-index: 5000;
             display: flex; justify-content: center; align-items: center;
             backdrop-filter: blur(6px);
         }
         .login-box {
-            background: var(--dark3);
-            padding: 44px 48px;
-            border-radius: 12px;
-            border: 1.5px solid var(--primary);
-            text-align: center;
-            width: 380px;
-            box-shadow: var(--glow-cyan);
+            background: var(--dark3); padding: 44px 48px;
+            border-radius: 12px; border: 1.5px solid var(--primary);
+            text-align: center; width: 380px; box-shadow: var(--glow-cyan);
         }
         .login-box h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-family: 'Orbitron', sans-serif; font-size: 1.3rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 8px;
         }
         .login-box p { color: var(--text-muted); font-size: 1rem; margin-bottom: 22px; }
         .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 6px;
+            width: 100%; padding: 12px 16px; border-radius: 6px;
             border: 1.5px solid rgba(0,240,255,0.25);
-            background: rgba(0,240,255,0.04);
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            outline: none;
-            transition: border-color 0.2s;
+            background: rgba(0,240,255,0.04); color: white;
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            outline: none; transition: border-color 0.2s;
         }
-        .input-field:focus { border-color: var(--primary); box-shadow: var(--glow-cyan); }
+        .input-field:focus { border-color: var(--primary); }
         .input-field::placeholder { color: #4a5568; }
 
-        /* ─── MODALS ─── */
-        #modal-producto, #modal-usuarios {
+        #modal-producto {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.88); z-index: 2000; justify-content: center; align-items: center;
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.88); z-index: 2000;
+            justify-content: center; align-items: center; backdrop-filter: blur(4px);
         }
         .modal-content {
-            background: var(--dark3);
-            padding: 24px;
-            border-radius: 12px;
-            border: 1.5px solid var(--primary);
-            width: 580px;
-            text-align: center;
-            position: relative;
+            background: var(--dark3); padding: 24px; border-radius: 12px;
+            border: 1.5px solid var(--primary); width: 580px; text-align: center;
             box-shadow: var(--glow-cyan);
         }
         .modal-content h2 { font-family: 'Orbitron', sans-serif; font-size: 1rem; letter-spacing: 1px; margin-bottom: 10px; }
         .video-wrapper { width: 100%; height: 300px; background: #000; margin-bottom: 16px; border-radius: 6px; overflow: hidden; }
         .qty-input {
-            width: 70px; padding: 8px;
-            border-radius: 4px; border: 1.5px solid rgba(0,240,255,0.3);
+            width: 70px; padding: 8px; border-radius: 4px;
+            border: 1.5px solid rgba(0,240,255,0.3);
             background: var(--dark2); color: white;
             font-family: 'Rajdhani', sans-serif; font-size: 1rem;
             text-align: center; outline: none; margin-bottom: 16px;
         }
 
-        /* ─── SIDEBARS ─── */
         #user-sidebar, #cart-sidebar {
             position: fixed; right: -420px; top: 0;
             width: 360px; height: 100%;
-            background: var(--dark3);
-            border-left: 2px solid var(--primary);
+            background: var(--dark3); border-left: 2px solid var(--primary);
             transition: right 0.35s cubic-bezier(.4,0,.2,1);
             z-index: 1001;
             display: flex; flex-direction: column;
             padding: 24px; gap: 14px;
-            box-shadow: -6px 0 40px rgba(0,240,255,0.1);
         }
         #cart-sidebar { z-index: 1000; }
         #user-sidebar.active, #cart-sidebar.active { right: 0; }
         .sidebar-title { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; color: var(--primary); letter-spacing: 2px; }
         .user-list { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
         .user-item {
-            background: var(--dark2);
-            padding: 10px 14px;
-            border-radius: 6px;
+            background: var(--dark2); padding: 10px 14px; border-radius: 6px;
             border-left: 3px solid var(--primary);
-            display: flex; justify-content: space-between; align-items: center;
-            font-weight: 600;
+            display: flex; justify-content: space-between; align-items: center; font-weight: 600;
         }
         .cart-item {
-            background: var(--dark2);
-            padding: 10px 14px;
-            border-radius: 6px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: var(--dark2); padding: 10px 14px; border-radius: 6px;
             border-left: 3px solid var(--secondary);
-            font-weight: 600;
+            display: flex; justify-content: space-between; align-items: center; font-weight: 600;
         }
         .cart-total { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--green); text-shadow: var(--glow-green); }
 
-        /* ─── CHAT ─── */
+        #deck3d-sidebar {
+            position: fixed; left: -440px; top: 0;
+            width: 400px; height: 100%;
+            background: var(--dark3); border-right: 2px solid var(--primary);
+            transition: left 0.35s cubic-bezier(.4,0,.2,1);
+            z-index: 1002;
+            display: flex; flex-direction: column;
+            padding: 24px; gap: 16px;
+            box-shadow: 6px 0 40px rgba(0,240,255,0.12);
+        }
+        #deck3d-sidebar.active { left: 0; }
+        #canvas3d {
+            width: 100%; flex: 1; min-height: 280px;
+            border-radius: 10px; border: 1px solid rgba(0,240,255,0.2);
+            background: var(--dark2); cursor: grab; display: block;
+        }
+        #canvas3d:active { cursor: grabbing; }
+        .deck-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+        .deck-controls button {
+            flex: 1; font-family: 'Rajdhani', sans-serif;
+            font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+            padding: 7px 10px; border-radius: 4px;
+            border: 1.5px solid rgba(0,240,255,0.3);
+            background: transparent; color: var(--primary);
+            cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+        }
+        .deck-controls button:hover,
+        .deck-controls button.active-shape { background: var(--primary); color: var(--dark); }
+
         .area-chat {
-            margin-top: 28px;
-            background: var(--dark3);
+            margin-top: 28px; background: var(--dark3);
             border: 1.5px solid rgba(0,240,255,0.18);
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 12px; padding: 20px;
+            position: relative; overflow: hidden;
         }
         .area-chat::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         .chat-header {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--primary);
-            letter-spacing: 2px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+            color: var(--primary); letter-spacing: 2px; margin-bottom: 14px;
+            display: flex; align-items: center; gap: 10px;
         }
-        .chat-status {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--green);
-            box-shadow: var(--glow-green);
-            animation: pulse 2s infinite;
-        }
+        .chat-status { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: var(--glow-green); animation: pulse 2s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
         #chat-display {
-            height: 160px;
-            overflow-y: auto;
-            background: var(--dark2);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 14px;
-            border-radius: 8px;
+            height: 160px; overflow-y: auto;
+            background: var(--dark2); border: 1px solid rgba(255,255,255,0.06);
+            padding: 14px; border-radius: 8px;
             display: flex; flex-direction: column; gap: 10px;
             margin-bottom: 12px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--dark);
+            scrollbar-width: thin; scrollbar-color: var(--primary) var(--dark);
         }
-        #chat-display::-webkit-scrollbar { width: 4px; }
-        #chat-display::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
-
-        .msg {
-            padding: 9px 15px;
-            border-radius: 12px;
-            max-width: 80%;
-            font-size: 0.95rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-        .msg-user {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--primary), #0099aa);
-            color: var(--dark);
-            border-radius: 12px 12px 2px 12px;
-        }
-        .msg-bot {
-            align-self: flex-start;
-            background: var(--dark3);
-            color: var(--text);
-            border: 1px solid rgba(255,60,172,0.3);
-            border-radius: 12px 12px 12px 2px;
-        }
-
+        .msg { padding: 9px 15px; border-radius: 12px; max-width: 80%; font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
+        .msg-user { align-self: flex-end; background: linear-gradient(135deg, var(--primary), #0099aa); color: var(--dark); border-radius: 12px 12px 2px 12px; }
+        .msg-bot { align-self: flex-start; background: var(--dark3); color: var(--text); border: 1px solid rgba(255,60,172,0.3); border-radius: 12px 12px 12px 2px; }
         .chat-input-row { display: flex; gap: 10px; }
         .chat-input {
-            flex: 1;
-            padding: 11px 16px;
-            border-radius: 6px;
+            flex: 1; padding: 11px 16px; border-radius: 6px;
             border: 1.5px solid rgba(0,240,255,0.2);
-            background: var(--dark2);
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
+            background: var(--dark2); color: white;
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+            outline: none; transition: border-color 0.2s;
         }
         .chat-input:focus { border-color: var(--primary); box-shadow: var(--glow-cyan); }
         .chat-input::placeholder { color: #4a5568; }
     </style>
 </head>
-<body onload="init()">
+<body>
+
+    <!-- DECK 3D SIDEBAR -->
+    <div id="deck3d-sidebar">
+        <div class="sidebar-title">🎮 DECK 3D</div>
+        <canvas id="canvas3d"></canvas>
+        <div class="deck-controls">
+            <button id="btn-cubo" class="active-shape" onclick="setShape('cubo')">Cubo</button>
+            <button id="btn-esfera" onclick="setShape('esfera')">Esfera</button>
+            <button id="btn-piramide" onclick="setShape('piramide')">Pirámide</button>
+            <button id="btn-toroide" onclick="setShape('toroide')">Toroide</button>
+        </div>
+        <div style="color:var(--text-muted);font-size:0.85rem;text-align:center;">🖱️ Arrastra para rotar · Scroll para zoom</div>
+        <button class="btn btn-muted" onclick="toggleDeck3D()">CERRAR</button>
+    </div>
 
     <!-- LOGIN -->
     <div id="overlay-login">
@@ -371,7 +272,7 @@
             <p>Ingresa tu nombre para continuar</p>
             <input type="text" class="input-field" id="reg-nombre" placeholder="Tu nombre o nickname" autocomplete="off">
             <br><br>
-            <button class="btn btn-cyan" style="width:100%; padding:12px;" onclick="registrarUsuario()">ENTRAR AL STORE</button>
+            <button class="btn btn-cyan" style="width:100%;padding:12px;" onclick="registrarUsuario()">ENTRAR AL STORE</button>
         </div>
     </div>
 
@@ -387,11 +288,10 @@
         <div class="modal-content">
             <div id="video-wrapper" class="video-wrapper"></div>
             <h2 id="m-titulo"></h2>
-            <p id="m-precio" style="color:var(--green); font-size:1.3rem; font-weight:700; text-shadow:var(--glow-green); margin-bottom:6px;"></p>
-            <p style="color:var(--text-muted); margin-bottom:12px;">Stock disponible: <span id="m-stock" style="color:var(--accent);font-weight:700;"></span></p>
-            <input type="number" class="qty-input" id="m-cant" value="1" min="1">
-            <br>
-            <button class="btn btn-pink" style="margin-right:8px;" onclick="add()">Añadir al Carrito</button>
+            <p id="m-precio" style="color:var(--green);font-size:1.3rem;font-weight:700;margin-bottom:6px;"></p>
+            <p style="color:var(--text-muted);margin-bottom:12px;">Stock: <span id="m-stock" style="color:var(--accent);font-weight:700;"></span></p>
+            <input type="number" class="qty-input" id="m-cant" value="1" min="1"><br>
+            <button class="btn btn-pink" style="margin-right:8px;" onclick="addToCart()">Añadir al Carrito</button>
             <button class="btn btn-muted" onclick="closeM()">Cerrar</button>
         </div>
     </div>
@@ -399,22 +299,23 @@
     <!-- SIDEBAR CARRITO -->
     <div id="cart-sidebar">
         <div class="sidebar-title">🛒 CARRITO</div>
-        <div id="cart-items" style="flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;"></div>
+        <div id="cart-items" style="flex-grow:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
         <div>Total: <span class="cart-total" id="cart-total">$0.00</span></div>
-        <button class="btn btn-accent" style="width:100%; padding:12px;" onclick="pay()">PAGAR AHORA</button>
+        <button class="btn btn-accent" style="width:100%;padding:12px;" onclick="pay()">PAGAR AHORA</button>
         <button class="btn btn-muted" onclick="toggleC()">VOLVER</button>
     </div>
 
     <!-- HEADER -->
     <header>
-        <div style="display:flex; align-items:center; gap:20px;">
+        <div style="display:flex;align-items:center;gap:20px;">
             <div class="logo">JARED SHOP</div>
             <span class="welcome-txt" id="txt-bienvenida"></span>
         </div>
         <div class="header-right">
+            <button class="btn" style="background:transparent;border:1.5px solid var(--secondary);color:var(--secondary);" onclick="toggleDeck3D()">🎮 Deck 3D</button>
             <button class="btn btn-cyan" onclick="toggleUsers()">👥 Comunidad</button>
             <button class="btn btn-pink" onclick="toggleC()">🛒 Carrito (<span id="cart-count">0</span>)</button>
-            <button class="btn" style="background:#ef4444; color:white;" onclick="salir()">Salir</button>
+            <button class="btn" style="background:#ef4444;color:white;" onclick="salir()">Salir</button>
         </div>
     </header>
 
@@ -422,8 +323,6 @@
     <div class="main-container">
         <div class="section-title">Bienvenido a la Tienda</div>
         <div class="grid-juegos" id="grid"></div>
-
-        <!-- CHAT -->
         <div class="area-chat">
             <div class="chat-header">
                 <div class="chat-status"></div>
@@ -431,178 +330,338 @@
             </div>
             <div id="chat-display"></div>
             <div class="chat-input-row">
-                <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter')handleChat()">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter') handleChat()">
                 <button class="btn btn-cyan" onclick="handleChat()">ENVIAR</button>
             </div>
         </div>
     </div>
 
-    <script>
-        const db = [
-            { id: 0, n: "Borderlands 3", p: 30, s: 5, img: "https://img.asmedia.epimg.net/resizer/v2/KCBZR3TQXRPTPK3WWHZZNIBA4I.jpg?auth=320bb9b1132493e0dc27cc129bb39202867d7b5e57000dbb930d423371488b85&width=1200&height=675&smart=true", vid: "DU6wWn-oVpU" },
-            { id: 1, n: "R.E.P.O.", p: 20, s: 8, img: "https://i.pinimg.com/236x/41/fc/cb/41fccbc3e859a266af8dccffa1c52117.jpg", vid: "ZkN0LdB4iAQ" },
-            { id: 2, n: "Terraria", p: 10, s: 15, img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg", vid: "J-ykK1ACzBI" },
-            { id: 3, n: "Minecraft Dungeons", p: 20, s: 4, img: "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000021401/59686225dba24636062a421593effdb4fe136bbfd67b11c621fe92ed36a65734", vid: "eoRd6rT63uA" },
-            { id: 4, n: "Halo Infinite", p: 40, s: 6, img: "https://wpassets.halowaypoint.com/wp-content/2021/12/HaloInfinite_CampaignKeyArt_CLEAN_1920x1080.jpg", vid: "EqG1tCWbZNQ" }
-        ];
+<script>
+var db = [
+    { id:0, n:"Borderlands 3",     p:30, s:5,  img:"https://img.asmedia.epimg.net/resizer/v2/KCBZR3TQXRPTPK3WWHZZNIBA4I.jpg?auth=320bb9b1132493e0dc27cc129bb39202867d7b5e57000dbb930d423371488b85&width=1200&height=675&smart=true", vid:"DU6wWn-oVpU" },
+    { id:1, n:"R.E.P.O.",           p:20, s:8,  img:"https://i.pinimg.com/236x/41/fc/cb/41fccbc3e859a266af8dccffa1c52117.jpg", vid:"ZkN0LdB4iAQ" },
+    { id:2, n:"Terraria",           p:10, s:15, img:"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg", vid:"J-ykK1ACzBI" },
+    { id:3, n:"Minecraft Dungeons", p:20, s:4,  img:"https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000021401/59686225dba24636062a421593effdb4fe136bbfd67b11c621fe92ed36a65734", vid:"eoRd6rT63uA" },
+    { id:4, n:"Halo Infinite",      p:40, s:6,  img:"https://wpassets.halowaypoint.com/wp-content/2021/12/HaloInfinite_CampaignKeyArt_CLEAN_1920x1080.jpg", vid:"EqG1tCWbZNQ" }
+];
+var cart = [];
+var cur = null;
+var usuarios = JSON.parse(localStorage.getItem('jaredUsers') || '[]');
+var currentUser = "";
 
-        let cart = [];
-        let cur = null;
-        let usuarios = JSON.parse(localStorage.getItem('jaredUsers')) || [];
-        let currentUser = "";
+window.onload = function() {
+    renderGrid();
+    renderUsers();
+    initCanvas3D();
+};
 
-        function init() { renderGrid(); renderUsers(); }
+function salir() {
+    currentUser = "";
+    document.getElementById('txt-bienvenida').innerText = "";
+    document.getElementById('overlay-login').style.display = 'flex';
+}
 
-        function salir() {
-            currentUser = "";
-            document.getElementById('txt-bienvenida').innerText = "";
-            document.getElementById('overlay-login').style.display = 'flex';
+function registrarUsuario() {
+    var nom = document.getElementById('reg-nombre').value.trim();
+    if (!nom) { alert("Debes ingresar un nombre."); return; }
+    currentUser = nom;
+    if (usuarios.indexOf(nom) === -1) {
+        usuarios.push(nom);
+        localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+        renderUsers();
+    }
+    document.getElementById('txt-bienvenida').innerText = "Hola, " + currentUser + " \u2726";
+    document.getElementById('overlay-login').style.display = 'none';
+    document.getElementById('reg-nombre').value = '';
+}
+
+function renderUsers() {
+    var html = '';
+    for (var i = 0; i < usuarios.length; i++) {
+        html += '<div class="user-item"><span>\u2B21 ' + usuarios[i] + '</span><div style="display:flex;gap:6px;"><button class="btn" style="background:#2563eb;color:white;padding:3px 8px;font-size:0.75rem;" onclick="editarUsuario(' + i + ')">\u270E</button><button class="btn-danger" onclick="borrarUsuario(' + i + ')">\u2715</button></div></div>';
+    }
+    document.getElementById('user-list').innerHTML = html;
+}
+
+function borrarUsuario(idx) {
+    if (confirm("Borrar usuario?")) {
+        usuarios.splice(idx, 1);
+        localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+        renderUsers();
+    }
+}
+
+function editarUsuario(idx) {
+    var nuevo = prompt("Nuevo nombre:", usuarios[idx]);
+    if (nuevo && nuevo.trim()) {
+        usuarios[idx] = nuevo.trim();
+        localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
+        renderUsers();
+    }
+}
+
+function toggleUsers() { document.getElementById('user-sidebar').classList.toggle('active'); }
+
+function renderGrid() {
+    var html = '';
+    for (var i = 0; i < db.length; i++) {
+        var j = db[i];
+        html += '<div class="card-juego" onclick="openM(' + j.id + ')"><div class="img-box"><img src="' + j.img + '" alt="' + j.n + '"></div><div class="info-box"><strong>' + j.n + '</strong><span class="price-tag">$' + j.p + '</span></div></div>';
+    }
+    document.getElementById('grid').innerHTML = html;
+}
+
+function openM(id) {
+    for (var i = 0; i < db.length; i++) { if (db[i].id === id) { cur = db[i]; break; } }
+    document.getElementById('video-wrapper').innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + cur.vid + '" frameborder="0" allowfullscreen></iframe>';
+    document.getElementById('m-titulo').innerText = cur.n;
+    document.getElementById('m-precio').innerText = '$' + cur.p + '.00';
+    document.getElementById('m-stock').innerText = cur.s;
+    document.getElementById('modal-producto').style.display = 'flex';
+}
+
+function closeM() {
+    document.getElementById('video-wrapper').innerHTML = "";
+    document.getElementById('modal-producto').style.display = 'none';
+}
+
+function addToCart() {
+    var c = parseInt(document.getElementById('m-cant').value);
+    if (c > cur.s || c <= 0) { alert("Stock insuficiente."); return; }
+    cur.s -= c;
+    for (var i = 0; i < c; i++) { cart.push({ id: cur.id, n: cur.n, p: cur.p }); }
+    updateUI();
+    closeM();
+}
+
+function updateUI() {
+    document.getElementById('cart-count').innerText = cart.length;
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) total += cart[i].p;
+    document.getElementById('cart-total').innerText = '$' + total.toFixed(2);
+    var html = '';
+    for (var i = 0; i < cart.length; i++) {
+        html += '<div class="cart-item"><span>' + cart[i].n + '</span><button class="btn-danger" onclick="removeItem(' + i + ')">\u2715</button></div>';
+    }
+    document.getElementById('cart-items').innerHTML = html;
+}
+
+function removeItem(i) {
+    for (var k = 0; k < db.length; k++) { if (db[k].id === cart[i].id) { db[k].s += 1; break; } }
+    cart.splice(i, 1);
+    updateUI();
+}
+
+function toggleC() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+
+function pay() {
+    if (cart.length > 0) {
+        alert("Compra realizada! Gracias por tu compra.");
+        cart = [];
+        updateUI();
+        toggleC();
+    }
+}
+
+function handleChat() {
+    var input = document.getElementById('chat-input');
+    var txt = input.value.trim();
+    if (!txt) return;
+    addMsg(txt, 'user');
+    input.value = "";
+    setTimeout(function() {
+        var q = txt.toLowerCase();
+        var r = "";
+        if (/hola|buen|quetal|onda/.test(q)) {
+            r = "Hola, " + currentUser + "! Busca algun juego en especial? 🎮";
+        } else if (q.indexOf("barato") !== -1 || q.indexOf("oferta") !== -1) {
+            var low = null;
+            for (var i = 0; i < db.length; i++) { if (!low || db[i].p < low.p) low = db[i]; }
+            r = "El mas accesible es " + low.n + " por solo $" + low.p + " 💸";
+        } else if (q.indexOf("caro") !== -1 || q.indexOf("mejor") !== -1) {
+            var high = null;
+            for (var i = 0; i < db.length; i++) { if (!high || db[i].p > high.p) high = db[i]; }
+            r = "El premium es " + high.n + " a $" + high.p + " 🔥";
+        } else if (q.indexOf("stock") !== -1 || q.indexOf("disponible") !== -1) {
+            var s = "Stock: ";
+            for (var i = 0; i < db.length; i++) s += db[i].n + " (" + db[i].s + "), ";
+            r = s.slice(0, -2) + ".";
+        } else if (/tonto|mierda|asco/.test(q)) {
+            r = "Solo quiero ayudarte a encontrar tu proximo juego 😅";
+        } else if (q.indexOf("recomienda") !== -1 || q.indexOf("cual compro") !== -1) {
+            var rnd = db[Math.floor(Math.random() * db.length)];
+            r = "Te recomiendo " + rnd.n + " — haz clic en su imagen para ver el trailer 🎬";
+        } else if (/adios|bye|chao|gracias/.test(q)) {
+            r = "Hasta pronto, " + currentUser + "! Disfruta tu gaming! 🕹️";
+        } else if (q.indexOf("quien eres") !== -1 || q.indexOf("que eres") !== -1) {
+            r = "Soy Jared Asistente, la IA de Jared Shop.";
+        } else if (q.indexOf("video") !== -1 || q.indexOf("trailer") !== -1) {
+            r = "Haz clic en cualquier juego para ver su trailer ▶️";
+        } else {
+            r = "Puedo ayudarte con precios, stock o recomendaciones. Que necesitas?";
         }
+        addMsg(r, 'bot');
+    }, 500);
+}
 
-        function registrarUsuario() {
-            const nom = document.getElementById('reg-nombre').value.trim();
-            if (!nom) return alert("Debes ingresar un nombre.");
-            currentUser = nom;
-            if (!usuarios.includes(nom)) {
-                usuarios.push(nom);
-                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
-                renderUsers();
+function addMsg(t, type) {
+    var d = document.getElementById('chat-display');
+    var div = document.createElement('div');
+    div.className = 'msg msg-' + type;
+    div.innerText = t;
+    d.appendChild(div);
+    d.scrollTop = d.scrollHeight;
+}
+
+/* ── 3D ENGINE ── */
+var c3d, ctx3d;
+var rotX3d = 0.4, rotY3d = 0.4;
+var dragging3d = false, lastX3d = 0, lastY3d = 0;
+var zoom3d = 1;
+var shape3d = 'cubo';
+
+function toggleDeck3D() {
+    document.getElementById('deck3d-sidebar').classList.toggle('active');
+}
+
+function setShape(s) {
+    shape3d = s;
+    var btns = document.querySelectorAll('.deck-controls button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active-shape');
+    document.getElementById('btn-' + s).classList.add('active-shape');
+}
+
+function initCanvas3D() {
+    c3d = document.getElementById('canvas3d');
+    ctx3d = c3d.getContext('2d');
+    c3d.addEventListener('mousedown', function(e) { dragging3d = true; lastX3d = e.clientX; lastY3d = e.clientY; });
+    window.addEventListener('mouseup', function() { dragging3d = false; });
+    window.addEventListener('mousemove', function(e) {
+        if (!dragging3d) return;
+        rotY3d += (e.clientX - lastX3d) * 0.01;
+        rotX3d += (e.clientY - lastY3d) * 0.01;
+        lastX3d = e.clientX; lastY3d = e.clientY;
+    });
+    c3d.addEventListener('wheel', function(e) {
+        zoom3d = Math.max(0.3, Math.min(2.5, zoom3d - e.deltaY * 0.001));
+        e.preventDefault();
+    }, { passive: false });
+    render3D();
+}
+
+function rotPt(x, y, z) {
+    var y1 = y * Math.cos(rotX3d) - z * Math.sin(rotX3d);
+    var z1 = y * Math.sin(rotX3d) + z * Math.cos(rotX3d);
+    var x2 = x * Math.cos(rotY3d) + z1 * Math.sin(rotY3d);
+    var z2 = -x * Math.sin(rotY3d) + z1 * Math.cos(rotY3d);
+    return [x2, y1, z2];
+}
+
+function proj(x, y, z) {
+    var fov = 300 * zoom3d;
+    var sc = fov / (fov + z + 5);
+    return { x: c3d.width / 2 + x * sc, y: c3d.height / 2 + y * sc };
+}
+
+function drawFace(verts, indices, color) {
+    var pts = [];
+    for (var i = 0; i < indices.length; i++) pts.push(verts[indices[i]]);
+    ctx3d.beginPath();
+    ctx3d.moveTo(pts[0].x, pts[0].y);
+    for (var i = 1; i < pts.length; i++) ctx3d.lineTo(pts[i].x, pts[i].y);
+    ctx3d.closePath();
+    ctx3d.globalAlpha = 0.18; ctx3d.fillStyle = color; ctx3d.fill();
+    ctx3d.globalAlpha = 1; ctx3d.strokeStyle = color; ctx3d.lineWidth = 1.5;
+    ctx3d.shadowColor = color; ctx3d.shadowBlur = 10; ctx3d.stroke(); ctx3d.shadowBlur = 0;
+}
+
+function drawCube() {
+    var h = 70;
+    var raw = [[-h,-h,-h],[h,-h,-h],[h,h,-h],[-h,h,-h],[-h,-h,h],[h,-h,h],[h,h,h],[-h,h,h]];
+    var v = [];
+    for (var i = 0; i < raw.length; i++) { var r = rotPt(raw[i][0],raw[i][1],raw[i][2]); v.push(proj(r[0],r[1],r[2])); }
+    var faces = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[0,3,7,4],[1,2,6,5]];
+    var cols = ['#00f0ff','#ff3cac','#f9c846','#39ff14','#a855f7','#f97316'];
+    for (var i = 0; i < faces.length; i++) drawFace(v, faces[i], cols[i]);
+}
+
+function drawPyramid() {
+    var h = 80;
+    var raw = [[-h,h,-h],[h,h,-h],[h,h,h],[-h,h,h],[0,-h,0]];
+    var v = [];
+    for (var i = 0; i < raw.length; i++) { var r = rotPt(raw[i][0],raw[i][1],raw[i][2]); v.push(proj(r[0],r[1],r[2])); }
+    var faces = [[0,1,2,3],[0,1,4],[1,2,4],[2,3,4],[3,0,4]];
+    var cols = ['#00f0ff','#ff3cac','#f9c846','#39ff14','#a855f7'];
+    for (var i = 0; i < faces.length; i++) drawFace(v, faces[i], cols[i]);
+}
+
+function drawSphere() {
+    var segs = 10, rad = 80;
+    for (var i = 0; i < segs; i++) {
+        for (var j = 0; j < segs; j++) {
+            var quad = [[i,j],[i+1,j],[i+1,j+1],[i,j+1]];
+            var pts = [];
+            for (var k = 0; k < quad.length; k++) {
+                var phi = Math.PI * quad[k][0] / segs;
+                var theta = 2 * Math.PI * quad[k][1] / segs;
+                var rx = rad * Math.sin(phi) * Math.cos(theta);
+                var ry = rad * Math.cos(phi);
+                var rz = rad * Math.sin(phi) * Math.sin(theta);
+                var rot = rotPt(rx, ry, rz);
+                pts.push(proj(rot[0], rot[1], rot[2]));
             }
-            document.getElementById('txt-bienvenida').innerText = `Hola, ${currentUser} ✦`;
-            document.getElementById('overlay-login').style.display = 'none';
-            document.getElementById('reg-nombre').value = '';
+            var col = i < segs / 2 ? '#00f0ff' : '#ff3cac';
+            ctx3d.beginPath();
+            ctx3d.moveTo(pts[0].x, pts[0].y);
+            for (var k = 1; k < pts.length; k++) ctx3d.lineTo(pts[k].x, pts[k].y);
+            ctx3d.closePath();
+            ctx3d.globalAlpha = 0.45; ctx3d.strokeStyle = col; ctx3d.lineWidth = 0.7;
+            ctx3d.shadowColor = col; ctx3d.shadowBlur = 4; ctx3d.stroke();
+            ctx3d.shadowBlur = 0; ctx3d.globalAlpha = 1;
         }
+    }
+}
 
-        function renderUsers() {
-            document.getElementById('user-list').innerHTML = usuarios.map((u, i) => `
-                <div class="user-item">
-                    <span>⬡ ${u}</span>
-                    <div style="display:flex;gap:6px;">
-                        <button class="btn" style="background:#2563eb;color:white;padding:3px 8px;font-size:0.75rem;" onclick="editarUsuario(${i})">✎</button>
-                        <button class="btn-danger" onclick="borrarUsuario(${i})">✕</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function borrarUsuario(idx) {
-            if (confirm("¿Borrar a este usuario?")) {
-                usuarios.splice(idx, 1);
-                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
-                renderUsers();
+function drawTorus() {
+    var segs = 14, R = 65, rad = 25;
+    for (var i = 0; i < segs; i++) {
+        for (var j = 0; j < segs; j++) {
+            var quad = [[i,j],[i+1,j],[i+1,j+1],[i,j+1]];
+            var pts = [];
+            for (var k = 0; k < quad.length; k++) {
+                var u = 2 * Math.PI * quad[k][0] / segs;
+                var v = 2 * Math.PI * quad[k][1] / segs;
+                var rx = (R + rad * Math.cos(v)) * Math.cos(u);
+                var ry = rad * Math.sin(v);
+                var rz = (R + rad * Math.cos(v)) * Math.sin(u);
+                var rot = rotPt(rx, ry, rz);
+                pts.push(proj(rot[0], rot[1], rot[2]));
             }
+            var t = i / segs;
+            var col = t < 0.33 ? '#00f0ff' : t < 0.66 ? '#a855f7' : '#ff3cac';
+            ctx3d.beginPath();
+            ctx3d.moveTo(pts[0].x, pts[0].y);
+            for (var k = 1; k < pts.length; k++) ctx3d.lineTo(pts[k].x, pts[k].y);
+            ctx3d.closePath();
+            ctx3d.globalAlpha = 0.5; ctx3d.strokeStyle = col; ctx3d.lineWidth = 0.8;
+            ctx3d.shadowColor = col; ctx3d.shadowBlur = 5; ctx3d.stroke();
+            ctx3d.shadowBlur = 0; ctx3d.globalAlpha = 1;
         }
+    }
+}
 
-        function editarUsuario(idx) {
-            const nuevo = prompt("Nuevo nombre:", usuarios[idx]);
-            if (nuevo && nuevo.trim()) {
-                usuarios[idx] = nuevo.trim();
-                localStorage.setItem('jaredUsers', JSON.stringify(usuarios));
-                renderUsers();
-            }
-        }
-
-        function toggleUsers() { document.getElementById('user-sidebar').classList.toggle('active'); }
-
-        function renderGrid() {
-            document.getElementById('grid').innerHTML = db.map(j => `
-                <div class="card-juego" onclick="openM(${j.id})">
-                    <div class="img-box"><img src="${j.img}" alt="${j.n}"></div>
-                    <div class="info-box">
-                        <strong>${j.n}</strong>
-                        <span class="price-tag">$${j.p}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openM(id) {
-            cur = db.find(j => j.id === id);
-            document.getElementById('video-wrapper').innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${cur.vid}" frameborder="0" allowfullscreen></iframe>`;
-            document.getElementById('m-titulo').innerText = cur.n;
-            document.getElementById('m-precio').innerText = `$${cur.p}.00`;
-            document.getElementById('m-stock').innerText = cur.s;
-            document.getElementById('modal-producto').style.display = 'flex';
-        }
-
-        function closeM() {
-            document.getElementById('video-wrapper').innerHTML = "";
-            document.getElementById('modal-producto').style.display = 'none';
-        }
-
-        function add() {
-            const c = parseInt(document.getElementById('m-cant').value);
-            if (c > cur.s || c <= 0) return alert("Stock insuficiente.");
-            cur.s -= c;
-            for (let i = 0; i < c; i++) cart.push({...cur});
-            updateUI();
-            closeM();
-        }
-
-        function updateUI() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const total = cart.reduce((a, b) => a + b.p, 0);
-            document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('cart-items').innerHTML = cart.map((j, i) => `
-                <div class="cart-item">
-                    <span>${j.n}</span>
-                    <button class="btn-danger" onclick="remove(${i})">✕</button>
-                </div>
-            `).join('');
-        }
-
-        function remove(i) {
-            db.find(j => j.id === cart[i].id).s += 1;
-            cart.splice(i, 1);
-            updateUI();
-        }
-
-        function toggleC() { document.getElementById('cart-sidebar').classList.toggle('active'); }
-        function pay() { if (cart.length > 0) { alert("¡Compra realizada! 🎮"); cart = []; updateUI(); toggleC(); } }
-
-        function handleChat() {
-            const input = document.getElementById('chat-input');
-            const txt = input.value.trim();
-            if (!txt) return;
-            addMsg(txt, 'user');
-            input.value = "";
-            setTimeout(() => {
-                const q = txt.toLowerCase();
-                let r = "";
-                if (q.match(/hola|buen|quetal|onda/)) r = `¡Hola, ${currentUser}! ¿Buscas algún juego en especial? 🎮`;
-                else if (q.includes("barato") || q.includes("oferta")) {
-                    const low = [...db].sort((a, b) => a.p - b.p)[0];
-                    r = `El más accesible es ${low.n} por solo $${low.p} 💸`;
-                } else if (q.includes("caro") || q.includes("mejor")) {
-                    const high = [...db].sort((a, b) => b.p - a.p)[0];
-                    r = `El premium del momento es ${high.n} a $${high.p} — ¡vale cada centavo! 🔥`;
-                } else if (q.includes("stock") || q.includes("disponible")) {
-                    r = "Stock actual: " + db.map(j => `${j.n} (${j.s})`).join(", ") + ".";
-                } else if (q.match(/tonto|mierda|asco/)) {
-                    r = "Oye, soy Jared Asistente, solo quiero ayudarte a encontrar tu próximo juego favorito 😅";
-                } else if (q.includes("recomienda") || q.includes("cual compro")) {
-                    const rnd = db[Math.floor(Math.random() * db.length)];
-                    r = `Te recomiendo ${rnd.n} — haz clic en su imagen para ver el tráiler 🎬`;
-                } else if (q.match(/adios|bye|chao|gracias/)) {
-                    r = `¡Hasta pronto, ${currentUser}! ¡Disfruta tu gaming! 🕹️`;
-                } else if (q.includes("quien eres") || q.includes("que eres")) {
-                    r = "Soy Jared Asistente, la IA de Jared Shop. Estoy aquí para que no te quedes sin jugar.";
-                } else if (q.includes("video") || q.includes("trailer")) {
-                    r = "Haz clic en cualquier juego del catálogo para ver su tráiler oficial. ▶️";
-                } else {
-                    r = "Puedo ayudarte con precios, stock, recomendaciones o tráilers. ¿Qué necesitas?";
-                }
-                botReply(r);
-            }, 500);
-        }
-
-        function addMsg(t, type) {
-            const d = document.getElementById('chat-display');
-            d.innerHTML += `<div class="msg msg-${type}">${t}</div>`;
-            d.scrollTop = d.scrollHeight;
-        }
-
-        function botReply(t) { addMsg(t, 'bot'); }
-    </script>
+function render3D() {
+    c3d.width = c3d.offsetWidth;
+    c3d.height = c3d.offsetHeight;
+    ctx3d.clearRect(0, 0, c3d.width, c3d.height);
+    if (shape3d === 'cubo') drawCube();
+    else if (shape3d === 'esfera') drawSphere();
+    else if (shape3d === 'piramide') drawPyramid();
+    else if (shape3d === 'toroide') drawTorus();
+    rotY3d += 0.008;
+    rotX3d += 0.003;
+    requestAnimationFrame(render3D);
+}
+</script>
 </body>
 </html>
